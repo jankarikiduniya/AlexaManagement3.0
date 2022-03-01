@@ -84,7 +84,7 @@ PM_START_TEXT = """
 Hey Sweet Heart!!❤️
 I Am *Rocks Alexa* ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ɪ ᴡɪʟʟ ᴅɪsᴛʀᴏʏ ᴀʟʟ ʀᴜᴍᴇʀs ᴡɪᴛʜ ᴍʏ ᴍᴀɢɪᴄ...\n
 *JOIN OFFICIAL NETWORK* -
-[CHANNEL](t.me/AsadSupport) - [SUPPORT](t.me/Shayri_Music_Lovers)\n
+[CHANNEL](t.me/maxopeditz) - [SUPPORT](t.me/Shayri_Music_Lovers)\n
 *SEE POWER HIT - /help*
 
 ──『*ᴛʜᴀɴᴋs  ғᴏʀ  ᴜsɪɴɢ*』
