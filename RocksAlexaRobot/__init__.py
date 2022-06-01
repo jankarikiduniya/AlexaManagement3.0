@@ -19,7 +19,7 @@ from pyrogram import Client, errors
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.sessions import MemorySession
-
+from logging.config import fileConfig
 
 StartTime = time.time()
 
@@ -224,6 +224,18 @@ updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 pgram = Client("RocksAlexaRobot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 dispatcher = updater.dispatcher
+
+# enable logging
+
+fileConfig('logging.ini')
+
+#print(flag)
+log = logging.getLogger('[RocksAlexaRobot]')
+logging.getLogger('ptbcontrib.postgres_persistence.postgrespersistence').setLevel(logging.WARNING)
+log.info("[KIGYO] Kigyo is starting. | An Eagle Union Project. | Licensed under GPLv3.")
+log.info("[KIGYO] Not affiliated to Azur Lane or Yostar in any way whatsoever.")
+log.info("[KIGYO] Project maintained by: github.com/Dank-del (t.me/dank_as_fuck)")
+
 
 ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 try:
