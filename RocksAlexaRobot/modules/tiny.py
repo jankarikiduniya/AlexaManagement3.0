@@ -18,14 +18,14 @@ async def _(event):
     ik = await tbot.download_media(reply)
     im1 = Image.open("RocksAlexaRobot/resources/alexa.png")
     if ik.endswith(".tgs"):
-        await tbot.download_media(reply, "ken.tgs")
-        os.system("lottie_convert.py ken.tgs json.json")
+        await tbot.download_media(reply, "alexa.tgs")
+        os.system("lottie_convert.py alexa.tgs json.json")
         json = open("json.json", "r")
         jsn = json.read()
         jsn = jsn.replace("512", "2000")
         open = ("json.json", "w").write(jsn)
-        os.system("lottie_convert.py json.json ken.tgs")
-        file = "ken.tgs"
+        os.system("lottie_convert.py json.json alexa.tgs")
+        file = "alexa.tgs"
         os.remove("json.json")
     elif ik.endswith((".gif", ".mp4")):
         iik = cv2.VideoCapture(ik)
