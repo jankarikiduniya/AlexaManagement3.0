@@ -39,8 +39,6 @@ ad = AlphabetDetector()
 LOCK_TYPES = {
     "audio":
         Filters.audio,
-    "pdf":
-        Filters.pdf,
     "voice":
         Filters.voice,
     "document":
@@ -92,9 +90,6 @@ LOCK_CHAT_RESTRICTION = {
     "sticker": {
         "can_send_other_messages": False
     },
-    "pdf": {
-        "can_send_other_messages": False
-    },
     "gif": {
         "can_send_other_messages": False
     },
@@ -134,9 +129,6 @@ UNLOCK_CHAT_RESTRICTION = {
         "can_send_media_messages": True
     },
     "sticker": {
-        "can_send_other_messages": True
-    },
-    "pdf": {
         "can_send_other_messages": True
     },
     "gif": {
@@ -535,7 +527,6 @@ def build_lock_message(chat_id):
         res += "*" + "These are the current locks in this Chat:" + "*"
         if locks:
             locklist.append("sticker = `{}`".format(locks.sticker))
-            locklist.append("pdf = `{}`".format(locks.pdf))
             locklist.append("audio = `{}`".format(locks.audio))
             locklist.append("voice = `{}`".format(locks.voice))
             locklist.append("document = `{}`".format(locks.document))
