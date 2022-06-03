@@ -23,7 +23,7 @@ from RocksAlexaRobot.modules.helper_funcs.chat_status import (is_user_admin)
 from RocksAlexaRobot.modules.helper_funcs.extraction import extract_user
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-GN_IMG= "https://telegra.ph/file/31c4b0f1a5d19bd44b26e.mp4"
+GN_IMG= "https://telegra.ph/file/52eb0e2a082550fad027a.jpg"
 DECIDE_IMG= "https://telegra.ph/file/313cfbc4056bd3b5cd995.jpg"
 JUDGE_IMG= "https://telegra.ph/file/a2ebfdd262def30ad42a7.jpg"
 
@@ -36,7 +36,7 @@ def goodnight(update, context):
     reply = f"*Hey {escape_markdown(first_name)} \nGood Night! 😴*"
     message.reply_photo(GN_IMG,reply, parse_mode=ParseMode.MARKDOWN)
 
-GM_IMG= "https://telegra.ph/file/a604e1627bfae9cef7b57.mp4"
+GM_IMG= "https://telegra.ph/file/9e008ed4dc87b7d155a59.jpg"
 @run_async
 @typing_action
 def goodmorning(update, context):
