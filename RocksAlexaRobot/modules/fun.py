@@ -52,7 +52,7 @@ def asadali(update, context):
     message = update.effective_message
     first_name = update.effective_user.first_name
     disable_web_page_preview=True,
-    reply = f"*ʜɪ {escape_markdown(first_name)} ᴅᴏsᴛ 🥰 \n ɪᴛ's ᴍᴇ ɪᴛᴛᴜ 🤏 sᴀ ᴀsᴀᴅ ᴋᴇsʏ ʜᴏ\nTʜᴇʏ ᴀsᴋᴇᴅ ᴛʜᴇ ʀᴇᴀsᴏɴ ʙᴇʜɪɴᴅ ᴍʏ ᴀᴛᴛɪᴛᴜᴅᴇ...😇 I ʀᴇᴘʟɪᴇᴅ, ᴛʜᴇ ᴡᴀʏ ʏᴏᴜ ᴛʀᴇᴀᴛᴇᴅ ᴍᴇ....🌹 \n❥❥━───➸➽♦️❥❥━───➸➽\n🤞Cᴏ-ғᴏᴜɴᴅᴇʀ .....Oғ....#ROCKS 🤞\n🌹Click Here @Dr_Aasad_Ali 🌹\n❥❥━───➸➽♦️❥❥━───➸➽\nCʜᴏᴏsᴇ ᴍᴇ ᴏʀ ʟᴏsᴇ ᴍᴇ...🙃\nI’ᴍ ɴᴏᴛ ᴀ ʙᴀᴄᴋᴜᴘ ᴘʟᴀɴ ᴀɴᴅ..🤔 ᴅᴇғɪɴɪᴛᴇʟʏ ɴᴏᴛ ᴀ sᴇᴄᴏɴᴅ...😄 ᴄʜᴏɪᴄᴇ.....🙃*"
+    reply = f"*ʜɪ {escape_markdown(first_name)} ᴅᴏsᴛ 🥰\n      ❥❥━───➸➽\n ɪᴛ's ᴍᴇ ɪᴛᴛᴜ 🤏 sᴀ ᴀsᴀᴅ ᴋᴇsʏ ʜᴏ\n      ❥❥━───➸➽\nTʜᴇʏ ᴀsᴋᴇᴅ ᴛʜᴇ ʀᴇᴀsᴏɴ ʙᴇʜɪɴᴅ ᴍʏ ᴀᴛᴛɪᴛᴜᴅᴇ...😇 I ʀᴇᴘʟɪᴇᴅ, ᴛʜᴇ ᴡᴀʏ ʏᴏᴜ ᴛʀᴇᴀᴛᴇᴅ ᴍᴇ....🌹 \n      ❥❥━───➸➽\n🤞Cᴏ-ғᴏᴜɴᴅᴇʀ .....Oғ....#ROCKS\n🌹Click Here @Dr_Aasad_Ali\n      ❥❥━───➸➽\nCʜᴏᴏsᴇ ᴍᴇ ᴏʀ ʟᴏsᴇ ᴍᴇ...🙃\nI’ᴍ ɴᴏᴛ ᴀ ʙᴀᴄᴋᴜᴘ ᴘʟᴀɴ ᴀɴᴅ..🤔 ᴅᴇғɪɴɪᴛᴇʟʏ ɴᴏᴛ ᴀ sᴇᴄᴏɴᴅ...😄 ᴄʜᴏɪᴄᴇ.....🙃*"
     message.reply_photo(ASD_IMG,reply, parse_mode=ParseMode.MARKDOWN)
     
 @run_async
