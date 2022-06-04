@@ -8,105 +8,225 @@
 
 
 
+
 import os
-import io
-import requests
-import shutil 
 import random
-import re
 import glob
-import time
-
-from io import BytesIO
-from requests import get
-from telethon.tl.types import InputMessagesFilterPhotos
-
-from RocksAlexaRobot import OWNER_ID, SUPPORT_CHAT
-from RocksAlexaRobot.events import register
-from RocksAlexaRobot import telethn
 from PIL import Image, ImageDraw, ImageFont
+from telethon.tl.types import InputMessagesFilterPhotos
+from RocksAlexaRobot.events import register
+from RocksAlexaRobot import telethn as tbot, ubot2
 
 
-LOGO_LINKS            = ["https://telegra.ph/file/df1331d378ea9f38a0090.jpg",
-                         "https://telegra.ph/file/735c44767dda2b00442ca.jpg",
-                         "https://telegra.ph/file/6cfc2f2c5407f3c7be34d.jpg",
-                         "https://telegra.ph/file/5503b1017a1f398090baa.jpg",
-                         "https://telegra.ph/file/4e0ed6862df9f988b9f30.jpg",
-                         "https://telegra.ph/file/111960e17dbae6bf20a5e.jpg",
-                         "https://telegra.ph/file/f074f976a2d4a94536cf5.jpg",
-                         "https://telegra.ph/file/2d7cf1d43dede0eaf1bfe.jpg",
-                         "https://telegra.ph/file/f8d9b19a2d25cfd92c7fb.jpg",
-                         "https://telegra.ph/file/bbf5f6ec869b3204d605c.jpg",
-                         "https://telegra.ph/file/8f231b362e9c09fdf6078.jpg",
-                         "https://telegra.ph/file/364185b5c141d05ad9a93.jpg",
-                         "https://telegra.ph/file/722d61ca0443758dcbbfb.jpg",
-                         "https://telegra.ph/file/8fe6e456525353b4c40c8.jpg",
-                         "https://telegra.ph/file/73decdfd88cf8697c3953.jpg",
-                         "https://telegra.ph/file/6664c32dcb5b134beb19c.jpg",
-                         "https://telegra.ph/file/d3dd435d6c52fca20bb8c.jpg",
-                         "https://telegra.ph/file/7647a1d211bdc1f50b82b.jpg",
-                         "https://telegra.ph/file/2cdee4bf329b21da601f5.jpg",
-                         "https://telegra.ph/file/9505defd05201f1c6bb9f.jpg",
-                         "https://telegra.ph/file/0cc157663d3bcfd20a522.jpg",
-                         "https://telegra.ph/file/773e756def260814e5360.jpg",
-                         "https://telegra.ph/file/e9b37121ced76940a312b.jpg",
-                         "https://telegra.ph/file/33c7b4cf335d3faa26648.jpg",
-                         "https://telegra.ph/file/398464cf2d4fc012f2382.jpg",
-                         "https://telegra.ph/file/99342a6e4a98bb99eb825.jpg",
-                         "https://telegra.ph/file/f4d5aa912cd92c9fc17a3.jpg",
-                         "https://telegra.ph/file/bf1e329dee39473943939.jpg",
-                         "https://telegra.ph/file/bf1ea5233b8f2759f50df.jpg",
-                         "https://telegra.ph/file/c5824a10b34fedf4c2e40.jpg",
-                         "https://telegra.ph/file/5652282e8c19b63e2a62a.jpg",
-                         "https://telegra.ph/file/87286356a328d839df92b.jpg",
-                         "https://telegra.ph/file/888f420d4dd3b168299a4.jpg",
-                         "https://telegra.ph/file/02bd94586664a22b1d63f.jpg",
-                         "https://telegra.ph/file/83437275bfc2b061320a3.jpg",
-                         "https://telegra.ph/file/742f66b37753d48acfb4a.jpg",
-                         "https://telegra.ph/file/3ff65d24bb2098e35261f.jpg",
-                         "https://telegra.ph/file/f4c4b0f5ecc569a73a892.jpg",
-"https://telegra.ph/file/53cf86072b5cb1d743626.jpg",
-"https://telegra.ph/file/c2789ee5e396038706964.jpg",
-"https://telegra.ph/file/3986db1f05132ec799ef4.jpg",
-"https://telegra.ph/file/7bea67082d9bb648c4210.jpg",
-"https://telegra.ph/file/a9d891dab340566de3882.jpg",
-"https://telegra.ph/file/a55e21cee1dd03be2f4d3.jpg",
-"https://telegra.ph/file/3f5051e8194d2a554c153.jpg",
-"https://telegra.ph/file/abacfba1c4f25912fa7b3.jpg",
-"https://telegra.ph/file/92baf91c90e2f784148fa.jpg"
-]
+def mediainfo(media):
+    xx = str((str(media)).split("(", maxsplit=1)[0])
+    m = ""
+    if xx == "MessageMediaDocument":
+        mim = media.document.mime_type
+        if mim == "application/x-tgsticker":
+            m = "sticker animated"
+        elif "image" in mim:
+            if mim == "image/webp":
+                m = "sticker"
+            elif mim == "image/gif":
+                m = "gif as doc"
+            else:
+                m = "pic as doc"
+        elif "video" in mim:
+            if "DocumentAttributeAnimated" in str(media):
+                m = "gif"
+            elif "DocumentAttributeVideo" in str(media):
+                i = str(media.document.attributes[0])
+                if "supports_streaming=True" in i:
+                    m = "video"
+                m = "video as doc"
+            else:
+                m = "video"
+        elif "audio" in mim:
+            m = "audio"
+        else:
+            m = "document"
+    elif xx == "MessageMediaPhoto":
+        m = "pic"
+    elif xx == "MessageMediaWebPage":
+        m = "web"
+    return m
+
 
 @register(pattern="^/logo ?(.*)")
-async def lego(event):
- quew = event.pattern_match.group(1)
- if event.sender_id != OWNER_ID and not quew:
-  await event.reply('**Please Gimmie A Text For The Logo**.')
-  return
- pesan = await event.reply('**ᴍᴀᴋɪɴɢ ʏᴏᴜʀ ʟᴏɢᴏ. ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ!!!**')
- try:
-    text = event.pattern_match.group(1)
-    randc = random.choice(LOGO_LINKS)
-    img = Image.open(io.BytesIO(requests.get(randc).content))
+async def logo_gen(event):
+    xx = await event.reply("`Preparing your logo...`")
+    name = event.pattern_match.group(1)
+    if not name:
+        await xx.edit("`Provide some text to draw!\nExample: /logo <your name>!`")
+        return
+    bg_, font_ = "", ""
+    if event.reply_to_msg_id:
+        temp = await event.get_reply_message()
+        if temp.media:
+            if hasattr(temp.media, "document"):
+                if "font" in temp.file.mime_type:
+                    font_ = await temp.download_media()
+                elif (".ttf" in temp.file.name) or (".otf" in temp.file.name):
+                    font_ = await temp.download_media()
+            elif "pic" in mediainfo(temp.media):
+                bg_ = await temp.download_media()
+    else:
+        pics = []
+        async for i in ubot2.iter_messages(
+            "@KenLogopack", filter=InputMessagesFilterPhotos
+        ):
+            pics.append(i)
+        id_ = random.choice(pics)
+        bg_ = await id_.download_media()
+        fpath_ = glob.glob("./RocksAlexaRobot/resources/fonts/*")
+        font_ = random.choice(fpath_)
+    if not bg_:
+        pics = []
+        async for i in ubot2.iter_messages(
+            "@KenLogopack", filter=InputMessagesFilterPhotos
+        ):
+            pics.append(i)
+        id_ = random.choice(pics)
+        bg_ = await id_.download_media()
+    if not font_:
+        fpath_ = glob.glob("./RocksAlexaRobot/resources/fonts/*")
+        font_ = random.choice(fpath_)
+    if len(name) <= 8:
+        fnt_size = 120
+        strke = 10
+    elif len(name) >= 9:
+        fnt_size = 50
+        strke = 5
+    else:
+        fnt_size = 100
+        strke = 20
+    img = Image.open(bg_)
     draw = ImageDraw.Draw(img)
-    image_widthz, image_heightz = img.size
-    pointsize = 500
-    fillcolor = "black"
-    shadowcolor = "blue"
-    fnt = glob.glob("./RocksAlexaRobot/resources/LOGOS/*")
-    randf = random.choice(fnt)
-    font = ImageFont.truetype(randf, 140)
-    w, h = draw.textsize(text, font=font)
-    h += int(h*0.21)
+    font = ImageFont.truetype(font_, fnt_size)
+    w, h = draw.textsize(name, font=font)
+    h += int(h * 0.21)
     image_width, image_height = img.size
-    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
-    x = (image_widthz-w)/2
-    y = ((image_heightz-h)/2+6)
-    draw.text((x, y), text, font=font, fill="white", stroke_width=1, stroke_fill="black")
-    fname = "logo.png"
-    img.save(fname, "png")
-    await telethn.send_file(event.chat_id, file=fname, caption = f"**Made by @Alexa_Help**")         
-    await pesan.delete()
-    if os.path.exists(fname):
-            os.remove(fname)
- except Exception as e:
-    await event.reply(f'Error, Report [Rocks Alexa Server](t.me/Shayri_Music_Lovers), {e}')
+    draw.text(
+        ((image_width - w) / 2, (image_height - h) / 2),
+        name,
+        font=font,
+        fill=(255, 255, 255),
+    )
+    x = (image_width - w) / 2
+    y = (image_height - h) / 2
+    draw.text((x, y), name, font=font, fill="white",
+              stroke_width=strke, stroke_fill="black")
+    flnme = f"logo.png"
+    img.save(flnme, "png")
+    await xx.edit("`Uploading`")
+    if os.path.exists(flnme):
+        await tbot.send_file(
+            event.chat_id,
+            file=flnme,
+            caption="Logo by [Alexa Help](https://t.me/Alexa_Help)",
+            force_document=False,
+        )
+        os.remove(flnme)
+        await xx.delete()
+    if os.path.exists(bg_):
+        os.remove(bg_) 
+    if os.path.exists(font_):
+        if not font_.startswith("./RocksAlexaRobot/resources/fonts"):
+            os.remove(font_)
+
+
+@register(pattern="^/wlogo ?(.*)")
+async def logo_(event):
+    xx = await event.reply("`Preparing your logo...`")
+    name = event.pattern_match.group(1)
+    if not name:
+        await xx.edit("`Provide some text to draw!\nExample: /wlogo <your name>!`")
+        return
+    bg_, font_ = "", ""
+    if event.reply_to_msg_id:
+        temp = await event.get_reply_message()
+        if temp.media:
+            if hasattr(temp.media, "document"):
+                if "font" in temp.file.mime_type:
+                    font_ = await temp.download_media()
+                elif (".ttf" in temp.file.name) or (".otf" in temp.file.name):
+                    font_ = await temp.download_media()
+            elif "pic" in mediainfo(temp.media):
+                bg_ = await temp.download_media()
+    else:
+        pics = []
+        async for i in ubot2.iter_messages(
+            "@kenlogopack", filter=InputMessagesFilterPhotos
+        ):
+            pics.append(i)
+        id_ = random.choice(pics)
+        bg_ = await id_.download_media()
+        fpath_ = glob.glob("./RocksAlexaRobot/resources/fonts/*")
+        font_ = random.choice(fpath_)
+    if not bg_:
+        pics = []
+        async for i in ubot2.iter_messages(
+            "@kenlogopack", filter=InputMessagesFilterPhotos
+        ):
+            pics.append(i)
+        id_ = random.choice(pics)
+        bg_ = await id_.download_media()
+    if not font_:
+        fpath_ = glob.glob("./RocksAlexaRobot/resources/fonts/*")
+        font_ = random.choice(fpath_)
+    if len(name) <= 8:
+        fnt_size = 105
+        strke = 8
+    elif len(name) >= 9:
+        fnt_size = 50
+        strke = 4
+    else:
+        fnt_size = 95
+        strke = 13
+    img = Image.open(bg_)
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype(font_, fnt_size)
+    w, h = draw.textsize(name, font=font)
+    h += int(h * 0.21)
+    image_width, image_height = img.size
+    draw.text(
+        ((image_width - w) / 2, (image_height - h) / 2),
+        name,
+        font=font,
+        fill=(255, 255, 255),
+    )
+    x = (image_width - w) / 2
+    y = (image_height - h) / 2
+    draw.text((x, y), name, font=font, fill="white",
+              stroke_width=strke, stroke_fill="black")
+    flnme = f"logo.png"
+    img.save(flnme, "png")
+    await xx.edit("`Uploading`")
+    if os.path.exists(flnme):
+        await tbot.send_file(
+            event.chat_id,
+            file=flnme,
+            caption="Logo by [Asad Ali](https://t.me/Dr_Assad_Ali)",
+            force_document=False,
+        )
+        os.remove(flnme)
+        await xx.delete()
+    if os.path.exists(bg_):
+        os.remove(bg_) 
+    if os.path.exists(font_):
+        if not font_.startswith("./RocksAlexaRobot/resources/fonts"):
+            os.remove(font_)
+
+
+__mod_name__ = "©️ ʟᴏɢᴏᴍᴀᴋᴇʀ"
+
+__help__ = """ This is help menu for logomaker
+
+❂ /logo <text/name> - Create a logo with random view.
+❂ /wlogo <text/name> - Create a logo with wide view only.
+
+ Image Editor :
+
+❂  /edit <reply photo> - to edit image.
+"""
