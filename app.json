@@ -101,11 +101,6 @@
          "required": false,
          "value": "2042185317"
       },
-      "STRING_SESSION": {
-         "description": "Fill with telethon string session.",
-         "required": true,
-         "value": "" 
-      },
       "TIGERS": {
          "description": "A space separated list of user IDs who you wanna assign as tiger users.",
          "required": false,
@@ -152,7 +147,7 @@
       "DONATION_LINK": {
          "description": "Optional: link where you would like to receive donations. If you are a noob, better leave it",
          "required": false,
-         "value": "https://t.me/Dr_Assad_Ali"
+         "value": "https://t.me/Jankari_Ki_Duniya"
       },
       "DEL_CMDS": {
          "description": "Set this to True if you want to delete command messages from users who don't have the perms to run that command.",
