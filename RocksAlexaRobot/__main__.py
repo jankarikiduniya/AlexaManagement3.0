@@ -346,7 +346,7 @@ def help_button(update, context):
         if mod_match:
             module = mod_match.group(1)
             text = (
-                "» *ᴀᴠᴀɪʟᴀʙʟᴇ ᴄᴏᴍᴍᴀɴᴅs ꜰᴏʀ​​* *{}* :\n".format(
+                "Powered by [Dr Asad Ali](t.me/Dr_Assad_Ali) And [Harshit Sharma](t.me/HarshitSharma361)\nHere is the help for the *{}* module:\n".format(
                     HELPABLE[module].__mod_name__
                 )
                 + HELPABLE[module].__help__
