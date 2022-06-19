@@ -1,7 +1,12 @@
+# Code By Asad
+# © Alexa_Help
+
+
 import importlib
 import random
 import time
 import re
+from typing import Optional
 
 from sys import argv
 from typing import Optional
@@ -48,7 +53,6 @@ from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
 
 
-
 def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
@@ -57,10 +61,7 @@ def get_readable_time(seconds: int) -> str:
 
     while count < 4:
         count += 1
-        if count < 3:
-            remainder, result = divmod(seconds, 60)
-        else:
-            remainder, result = divmod(seconds, 24)
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
         if seconds == 0 and remainder == 0:
             break
         time_list.append(int(result))
@@ -77,14 +78,14 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-
 PM_START_TEXT = """
  ──『[ᴀʟᴇxᴀ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ](https://telegra.ph/file/a39d85b972b38e2d5fd91.jpg)』
 
-*ʜᴇʟʟᴏ !*
+*ʜᴇʟʟᴏ {} !*
 ✪ ɪ ᴀᴍ ᴀʟᴇxᴀ sᴜᴘᴇʀ ᴀᴅᴠᴀɴᴄᴇᴅ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ ʙᴏᴛ ᴡɪᴛʜ ᴜsᴇғᴜʟʟ ғᴇᴀᴛᴜʀᴇ ᴍᴀᴋᴇ ᴍᴇ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴛʜᴇɴ sᴇᴇ ᴍʏ ᴘᴏᴡᴇʀs ʙᴜᴅᴅʏ 😔
 ────────────────────────
-× * ᴘʀᴏᴊᴇᴄᴛ ᴏғ ᴀʟᴇxᴀ ʜᴇʟᴘ *
+× *Uptime:* `{}`
+× `{}` *users, across* `{}` *chats.*
 ────────────────────────
 ✪ ʜɪᴛ /help ᴛᴏ sᴇᴇ ᴍʏ ᴘᴏᴡᴇʀ ʙᴜᴅᴅʏ ✌️.
 ────────────────────────
@@ -208,6 +209,7 @@ def send_help(chat_id, text, keyboard=None):
     )
 
 
+@run_async
 def test(update: Update, context: CallbackContext):
     # pprint(eval(str(update)))
     # update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
@@ -215,7 +217,7 @@ def test(update: Update, context: CallbackContext):
     print(update.effective_message)
 
 
-
+@run_async
 def start(update: Update, context: CallbackContext):
     args = context.args
     uptime = get_readable_time((time.time() - StartTime))
@@ -231,7 +233,7 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="⬅Back", callback_data="help_back")]]
+                        [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
                     ),
                 )
 
@@ -249,13 +251,7 @@ def start(update: Update, context: CallbackContext):
 
         else:
             update.effective_message.reply_text(
-                random.choice(PMSTART_CHAT),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
-            )
-            first_name = update.effective_user.first_name
-            update.effective_message.reply_photo(
-               random.choice(PM_IMG),PM_START_TEXT,
+                PM_START_TEXT.format(dispatcher.bot.first_name),
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
@@ -336,7 +332,7 @@ def error_callback(update: Update, context: CallbackContext):
         # handle all other telegram related errors
 
 
-
+@run_async
 def help_button(update, context):
     query = update.callback_query
     mod_match = re.match(r"help_module\((.+?)\)", query.data)
@@ -350,7 +346,7 @@ def help_button(update, context):
         if mod_match:
             module = mod_match.group(1)
             text = (
-                "Powered by [Dr Asad Ali](t.me/Dr_Assad_Ali) And [Harshit Sharma](t.me/HarshitSharma361)\nHere is the help for the *{}* module:\n".format(
+                "» *ᴀᴠᴀɪʟᴀʙʟᴇ ᴄᴏᴍᴍᴀɴᴅs ꜰᴏʀ​​* *{}* :\n".format(
                     HELPABLE[module].__mod_name__
                 )
                 + HELPABLE[module].__help__
@@ -360,8 +356,7 @@ def help_button(update, context):
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="⬅ Back", callback_data="help_back"),
-                      InlineKeyboardButton(text="⬅ Home", callback_data="alexa_back")]]
+                    [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
                 ),
             )
 
@@ -402,34 +397,51 @@ def help_button(update, context):
         pass
 
 
-
-def alexa_data_callback(update, context):
+@run_async
+def Alexa_about_callback(update: Update, context: CallbackContext):
     query = update.callback_query
-    if query.data == "alexa_":
+    if query.data == "Alexa_":
         query.message.edit_text(
             text="""CallBackQueriesData Here""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [
-                 [
-                    InlineKeyboardButton(text="Back", callback_data="alexa_back")
-                 ]
-                ]
+                [[InlineKeyboardButton(text="◁", callback_data="Alexa_back")]]
             ),
         )
-    elif query.data == "alexa_back":
+    elif query.data == "Alexa_back":
         query.message.edit_text(
-                PM_START_TEXT,
-                reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
-                disable_web_page_preview=False,
+            PM_START_TEXT.format(dispatcher.bot.first_name),
+            reply_markup=InlineKeyboardMarkup(buttons),
+            parse_mode=ParseMode.MARKDOWN,
+            timeout=60,
+            disable_web_page_preview=False,
         )
 
 
+@run_async
+def Source_about_callback(update: Update, context: CallbackContext):
+    query = update.callback_query
+    if query.data == "source_":
+        query.message.edit_text(
+            text="""CallBackQueriesData Here""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="◁", callback_data="source_back")]]
+            ),
+        )
+    elif query.data == "source_back":
+        query.message.edit_text(
+            PM_START_TEXT.format(dispatcher.bot.first_name),
+            reply_markup=InlineKeyboardMarkup(buttons),
+            parse_mode=ParseMode.MARKDOWN,
+            timeout=60,
+            disable_web_page_preview=False,
+        )
 
 
+@run_async
 def get_help(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
@@ -481,7 +493,7 @@ def get_help(update: Update, context: CallbackContext):
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
             ),
         )
 
@@ -530,7 +542,7 @@ def send_settings(chat_id, user_id, user=False):
             )
 
 
-
+@run_async
 def settings_button(update: Update, context: CallbackContext):
     query = update.callback_query
     user = update.effective_user
@@ -554,7 +566,7 @@ def settings_button(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Back",
+                                text="◁",
                                 callback_data="stngs_back({})".format(chat_id),
                             )
                         ]
@@ -614,7 +626,7 @@ def settings_button(update: Update, context: CallbackContext):
             LOGGER.exception("Exception in settings buttons. %s", str(query.data))
 
 
-
+@run_async
 def get_settings(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -630,7 +642,7 @@ def get_settings(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Settings",
+                                text="sᴇᴛᴛɪɴɢs​",
                                 url="t.me/{}?start=stngs_{}".format(
                                     context.bot.username, chat.id
                                 ),
@@ -646,7 +658,7 @@ def get_settings(update: Update, context: CallbackContext):
         send_settings(chat.id, user.id, True)
 
 
-
+@run_async
 def donate(update: Update, context: CallbackContext):
     user = update.effective_message.from_user
     chat = update.effective_chat  # type: Optional[Chat]
@@ -656,11 +668,10 @@ def donate(update: Update, context: CallbackContext):
             DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
         )
 
-        if OWNER_ID != 5303133436 and DONATION_LINK:
+        if OWNER_ID !=1452219013 and DONATION_LINK:
             update.effective_message.reply_text(
                 "You can also donate to the person currently running me "
                 "[here]({})".format(DONATION_LINK),
-                disable_web_page_preview=True,
                 parse_mode=ParseMode.MARKDOWN,
             )
 
@@ -701,37 +712,46 @@ def migrate_chats(update: Update, context: CallbackContext):
     raise DispatcherHandlerStop
 
 
-
-
 def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}","[乛𝙍𝙊𝘾𝙆𝙎🕊️⃝🦋⁪⁬𝘼𝙇𝙀𝙓𝘼🕊️⃝🦋𝙄𝙎🕊️⃝🦋𝘽𝘼𝘾𝙆](https://telegra.ph/file/52b14a4c35f8ebb2b7bf1.jpg)", parse_mode=ParseMode.MARKDOWN) 
+            dispatcher.bot.send_photo(
+                f"@{SUPPORT_CHAT}",
+                "https://telegra.ph/file/52b14a4c35f8ebb2b7bf1.jpg",
+                caption="「 ᴀʟᴇxᴀʀᴏʙᴏᴛ 」 ɪs ᴀʟɪᴠᴇ !\n\nᴍᴀᴅᴇ ᴡɪᴛʜ ❣️ ʙʏ ᴀsᴀᴅ ᴀʟɪ 💌",
+            )
         except Unauthorized:
             LOGGER.warning(
-                "Bot isnt able to send message to support_chat, go and check!",
+                "Bot isnt able to send message to support_chat, go and check!"
             )
         except BadRequest as e:
             LOGGER.warning(e.message)
 
+    test_handler = CommandHandler("test", test)
+    start_handler = CommandHandler("start", start)
 
-    start_handler = DisableAbleCommandHandler("start", start)
-
-    help_handler = DisableAbleCommandHandler("help", get_help)
+    help_handler = CommandHandler("help", get_help)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*")
 
     settings_handler = CommandHandler("settings", get_settings)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
-    data_callback_handler = CallbackQueryHandler(alexa_data_callback, pattern=r"alexa_")
+    about_callback_handler = CallbackQueryHandler(
+        Abishnoi_about_callback, pattern=r"Abishnoi_"
+    )
+    source_callback_handler = CallbackQueryHandler(
+        Source_about_callback, pattern=r"source_"
+    )
+
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
     # dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
-    dispatcher.add_handler(data_callback_handler)
+    dispatcher.add_handler(about_callback_handler)
+    dispatcher.add_handler(source_callback_handler)
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
@@ -750,7 +770,7 @@ def main():
             updater.bot.set_webhook(url=URL + TOKEN)
 
     else:
-        LOGGER.info("Rocks Alexa is now alive and functioning")
+        LOGGER.info("Using long polling.")
         updater.start_polling(timeout=15, read_latency=4, clean=True)
 
     if len(argv) not in (1, 3, 4):
@@ -761,7 +781,8 @@ def main():
     updater.idle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
+    pbot.start()
     main()
