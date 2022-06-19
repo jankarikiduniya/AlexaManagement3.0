@@ -79,7 +79,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
- ──『[ᴀʟᴇxᴀ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ](https://telegra.ph/file/a39d85b972b38e2d5fd91.jpg)』
+ ──『[ᴀʟᴇxᴀ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ](https://telegra.ph/file/b62e639212e9d255fc816.jpg)』
 
 *ʜᴇʟʟᴏ {} !*
 ✪ ɪ ᴀᴍ ᴀʟᴇxᴀ sᴜᴘᴇʀ ᴀᴅᴠᴀɴᴄᴇᴅ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ ʙᴏᴛ ᴡɪᴛʜ ᴜsᴇғᴜʟʟ ғᴇᴀᴛᴜʀᴇ ᴍᴀᴋᴇ ᴍᴇ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴛʜᴇɴ sᴇᴇ ᴍʏ ᴘᴏᴡᴇʀs ʙᴜᴅᴅʏ 😔
@@ -89,15 +89,15 @@ PM_START_TEXT = """
 ────────────────────────
 ✪ ʜɪᴛ /help ᴛᴏ sᴇᴇ ᴍʏ ᴘᴏᴡᴇʀ ʙᴜᴅᴅʏ ✌️.
 ────────────────────────
-✪ [CHANNEL](t.me/AsadSupport) - [SUPPORT](t.me/Shayri_Music_Lovers)
+✪ [CHANNEL](t.me/bobbyxworld) - [SUPPORT](t.me/tamilchating_team_comrade)
 ────────────────────────
 ✪ ──『*ᴛʜᴀɴᴋs  ғᴏʀ  ᴜsɪɴɢ*』
 """
 PMSTART_CHAT = (
-    "[ Get Busy Living Or Get Busy Dying!!!](https://telegra.ph/file/f821830759461370f68d9.jpg)",
-    "[I'm Dr Asad Ali Project](https://telegra.ph/file/85e4f39239fd84a27d138.jpg)",
-    "[Turn Your Wounds Into Wisdom 🔥](https://telegra.ph/file/35e730dea457c85cc367b.mp4)",
-    "[Hahahahaha I'm Alexa!!!!](https://telegra.ph/file/6f43301a3e43d20f7906a.jpg)", )
+    "[ Get Busy Living Or Get Busy Dying!!!](https://telegra.ph/file/b55feb7a1bd7ee9706c2b.jpg)",
+    "[I'm Dr Asad Ali Project](https://telegra.ph/file/63a33b310fcb281c6eb00.jpg)",
+    "[Turn Your Wounds Into Wisdom 🔥](https://telegra.ph/file/3866935aa1b47f9b0f1a1.mp4)",
+    "[Hahahahaha I'm Cutie!!!!](https://telegra.ph/file/8b179dd176abda5b63912.jpg)", )
 
 buttons = [
     [
@@ -106,32 +106,32 @@ buttons = [
                             url="t.me/ALEXA_MANAGEMENTBOT?startgroup=true"),
                     ],
                    [
-                       InlineKeyboardButton(text="💌 ᴋɪɴɢ", url="t.me/HarshitSharma361"),
-                       InlineKeyboardButton(text="💌 ғᴇᴅ", url="t.me/Part_Of_Rocks"),
+                       InlineKeyboardButton(text="🥵𝐅ᴜ*ᴋᴇʀ🥵", url="t.me/Love_u_Bobby"),
+                       InlineKeyboardButton(text="👿ғᴇᴅᴇʀᴀᴛɪᴏɴ👿", url="t.me/comradefed"),
                      ],
                     [                  
                        InlineKeyboardButton(
-                             text="💌 ᴏᴡɴᴇʀ",
-                             url=f"https://t.me/Dr_Assad_Ali"),
+                             text="🔞ᴏᴡɴᴇʀ🔞",
+                             url=f"https://t.me/aboutbobby"),
                        InlineKeyboardButton(
-                             text="💌 ɴᴇᴛᴡᴏʀᴋ",
-                             url=f"https://t.me/Shayri_Music_Lovers"),
+                             text="👿ɴᴇᴛᴡᴏʀᴋ👿",
+                             url=f"https://t.me/comrade_network"),
                         ],
                        [
-                           InlineKeyboardButton(text="💓 ʟᴏᴠᴇ", url="t.me/Give_Me_Heart"
+                           InlineKeyboardButton(text="💓 ʟᴏᴠᴇ", url="t.me/tamilchating_team_comrade"
          ),
     ],
 ]
 
 HELP_STRINGS = """
-Hey there, I'm *Rocks Alexa*!
+Hey there, I'm *CUTIE X ROBOT*!
 To make me functional, make sure that i have enough rights in your group.
 Helpful commands:
 - /start: Starts me! You've probably already used this.
 - /help: Sends this message; I'll tell you more about myself!
 - /donate: Gives you info on how to support me and my creator.
-If you want to report bugs or have any questions on how to use me then feel free to reach out: @AsadSupport.
-All commands can be used with the following: [(/),(!),(?),(.),(~)](https://telegra.ph/file/9d22fedee29fdefdb4862.jpg)
+If you want to report bugs or have any questions on how to use me then feel free to reach out: @comrade_network.
+All commands can be used with the following: [(/),(!),(?),(.),(~)](https://telegra.ph/file/a0346264268665927f17a.jpg)
 List of all the Modules:
 """.format(
     dispatcher.bot.first_name,
@@ -139,15 +139,15 @@ List of all the Modules:
 )
 
 HELP_MSG = "Click the button below to get help manu in your pm."
-DONATE_STRING = """Contact to My Pretty [OWNER](t.me/Dr_Asad_Ali)"""
-HELP_IMG= "https://telegra.ph/file/93aa52512ccd256888b28.jpg"
-GROUPSTART_IMG= "https://telegra.ph/file/35e730dea457c85cc367b.mp4"
+DONATE_STRING = """Contact to My Pretty [OWNER](t.me/aboutbobby)"""
+HELP_IMG= "https://telegra.ph/file/a0346264268665927f17a.jpg"
+GROUPSTART_IMG= "https://telegra.ph/file/3866935aa1b47f9b0f1a1.mp4"
 
-PM_IMG = ( "https://telegra.ph/file/8d2bf852a53bd13fb8037.jpg",
-           "https://telegra.ph/file/6f43301a3e43d20f7906a.jpg",
-           "https://telegra.ph/file/c71c9940f27143f1d6b7b.jpg",
-           "https://telegra.ph/file/93aa52512ccd256888b28.jpg",
-           "https://telegra.ph/file/0d7fd638c3c2ea21176a1.jpg", )
+PM_IMG = ( "https://telegra.ph/file/63a33b310fcb281c6eb00.jpg",
+           "https://telegra.ph/file/b62e639212e9d255fc816.jpg",
+           "https://telegra.ph/file/3866935aa1b47f9b0f1a1.mp4",
+           "https://telegra.ph/file/a0346264268665927f17a.jpg",
+           "https://telegra.ph/file/b55feb7a1bd7ee9706c2b.jpg", )
 
 
 IMPORTED = {}
@@ -266,8 +266,8 @@ def start(update: Update, context: CallbackContext):
         reply_markup=InlineKeyboardMarkup(
                 [
                   [
-                  InlineKeyboardButton(text="💌 ᴋɪɴɢ ", url=f"t.me/Dr_Assad_Ali"),
-                  InlineKeyboardButton(text="😎 ᴜᴘᴅᴀᴛᴇs ", url=f"t.me/AsadSupport"),
+                  InlineKeyboardButton(text="🥵𝐅ᴜ*ᴋᴇʀ🥵 ", url=f"t.me/aboutbobby"),
+                  InlineKeyboardButton(text="😎 ᴜᴘᴅᴀᴛᴇs ", url=f"t.me/bobbyxworld"),
                   ]
                 ]
             ),
