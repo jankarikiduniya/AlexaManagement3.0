@@ -39,4 +39,4 @@ __help__ = """
  - `/encrypt` Encrypt your text
 """
 
-__mod_name__ = "? ??????????"
+__mod_name__ = "👨‍💻 ᴄᴏᴅᴇʀ"
