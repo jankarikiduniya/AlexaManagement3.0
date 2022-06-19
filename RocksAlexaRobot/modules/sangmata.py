@@ -1,7 +1,7 @@
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from RocksAlexaRobot import telethn as tbot
 from RocksAlexaRobot.events import register
-from RocksAlexaRobot import ubot2 as ubot
+from RocksAlexaRobot import pbot as ubot
 from asyncio.exceptions import TimeoutError
 
 
