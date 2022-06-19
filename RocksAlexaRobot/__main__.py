@@ -738,7 +738,7 @@ def main():
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
     about_callback_handler = CallbackQueryHandler(
-        Abishnoi_about_callback, pattern=r"Abishnoi_"
+        Alexa_about_callback, pattern=r"Alexa_"
     )
     source_callback_handler = CallbackQueryHandler(
         Source_about_callback, pattern=r"source_"
