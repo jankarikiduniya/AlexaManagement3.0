@@ -15,7 +15,7 @@ import glob
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterPhotos
 from RocksAlexaRobot.events import register
-from RocksAlexaRobot import telethn as tbot, pbot
+from RocksAlexaRobot import telethn as tbot, ubot2
 
 
 def mediainfo(media):
@@ -217,7 +217,7 @@ async def logo_(event):
     if os.path.exists(font_):
         if not font_.startswith("./RocksAlexaRobot/resources/fonts"):
             os.remove(font_)
-
+            
 
 __mod_name__ = "©️ ʟᴏɢᴏᴍᴀᴋᴇʀ"
 
